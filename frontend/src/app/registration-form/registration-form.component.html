@@ -1,6 +1,56 @@
-<form action="#">
-  <input name="username" type="text" required="required" placeholder="Username" />
-  <input name="password" type="password" required="required" placeholder="Password" />
-  <input name="email" type="email" required="required" placeholder="Email Address" />
-  <button type="submit">Registration</button>
-</form>
+<div class="wrapper">
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        REGISTER
+      </mat-panel-title>
+      <mat-panel-description>
+        {{panelOpenState ? 'Collapse' : 'Expand'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form action="#">
+      <mat-form-field>
+        <input matInput #username name="username" type="text" placeholder="Username" [formControl]="usernameFormControl" [errorStateMatcher]="matcher"/>
+        <mat-icon matSuffix>person</mat-icon>
+        <mat-hint align="end">{{username.value.length}} / 30</mat-hint>
+        <mat-error *ngIf="usernameFormControl.hasError('minlength')">
+          Username is too <strong>short</strong>
+        </mat-error>
+        <mat-error *ngIf="usernameFormControl.hasError('maxlength')">
+          Username is too <strong>long</strong>
+        </mat-error>
+        <mat-error *ngIf="usernameFormControl.hasError('required')">
+          Username is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput #password name="password" type="password" placeholder="Password" [formControl]="passwordFormControl" [errorStateMatcher]="matcher"/>
+        <mat-icon matSuffix>lock</mat-icon>
+        <mat-hint align="end">{{password.value.length}} / 20</mat-hint>
+        <mat-error *ngIf="passwordFormControl.hasError('minlength')">
+          Password is too <strong>short</strong>
+        </mat-error>
+        <mat-error *ngIf="passwordFormControl.hasError('maxlength')">
+          Password is too <strong>long</strong>
+        </mat-error>
+        <mat-error *ngIf="passwordFormControl.hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput name="email" type="email" placeholder="Email Address" [formControl]="emailFormControl" [errorStateMatcher]="matcher" />
+        <mat-icon matSuffix>email</mat-icon>
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Email is <strong>not valid</strong>
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <button mat-button class="submit-button" type="submit"><span class="button-text">SEND</span></button>
+    </form>
+  </mat-expansion-panel>
+</div>
+
+

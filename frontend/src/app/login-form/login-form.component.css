@@ -1,4 +1,24 @@
 form {
+  padding: 0 2vw;
   display: grid;
   grid-template-columns: 100%;
+}
+
+.wrapper {
+  margin-top: 5%;
+  margin-bottom: 3%;
+}
+
+mat-panel-title,
+.button-text {
+  font-weight: bold;
+}
+
+.button-text {
+  color: white;
+}
+
+.submit-button {
+  margin-top: 10px;
+  background-color: #222222;
 }
