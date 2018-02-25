@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 
@@ -30,10 +30,11 @@ export class LoginFormComponent implements OnInit {
 
   matcher = new LoginErrorStateMatcher();
 
-  isPanelOpen = true;
+  @Input() public isPanelOpen;
+  @Output() public toggleEvent = new EventEmitter();
 
   togglePanel() {
-    this.isPanelOpen = !this.isPanelOpen;
+    this.toggleEvent.emit(this.isPanelOpen);
   }
 
   constructor() { }
