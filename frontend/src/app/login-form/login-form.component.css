@@ -9,6 +9,14 @@ form {
   margin-bottom: 3%;
 }
 
+.mat-expansion-panel-header-description {
+  flex-grow: 0;
+}
+
+::ng-deep .mat-expansion-indicator:after {
+  margin-bottom: 7px;
+}
+
 mat-panel-title,
 .button-text {
   font-weight: bold;

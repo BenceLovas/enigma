@@ -1,9 +1,10 @@
 <div class="wrapper">
   <mat-expansion-panel (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false">
+                       (closed)="panelOpenState = false"
+                       [expanded]="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        ENTER
+        LOGIN
       </mat-panel-title>
       <mat-panel-description>
         {{panelOpenState ? 'Collapse' : 'Expand'}}
@@ -38,7 +39,7 @@
           Password is <strong>required</strong>
         </mat-error>
       </mat-form-field>
-      <button mat-button class="submit-button" type="submit"><span class="button-text">LOG IN</span></button>
+      <button mat-button class="submit-button" type="submit"><span class="button-text">ENTER</span></button>
     </form>
   </mat-expansion-panel>
 </div>
