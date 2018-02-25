@@ -30,6 +30,12 @@ export class LoginFormComponent implements OnInit {
 
   matcher = new LoginErrorStateMatcher();
 
+  isPanelOpen = true;
+
+  togglePanel() {
+    this.isPanelOpen = !this.isPanelOpen;
+  }
+
   constructor() { }
 
   ngOnInit() {

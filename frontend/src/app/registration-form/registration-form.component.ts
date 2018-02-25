@@ -17,7 +17,6 @@ export class RegistrationErrorStateMatcher implements ErrorStateMatcher {
 })
 export class RegistrationFormComponent implements OnInit {
 
-
   usernameFormControl = new FormControl('', [
     Validators.required,
     Validators.minLength(5),
@@ -36,6 +35,12 @@ export class RegistrationFormComponent implements OnInit {
   ]);
 
   matcher = new LoginErrorStateMatcher();
+
+  isPanelOpen = false;
+
+  togglePanel() {
+    this.isPanelOpen = !this.isPanelOpen;
+  }
 
   constructor() { }
 

@@ -1,12 +1,11 @@
 <div class="wrapper">
-  <mat-expansion-panel (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false">
-    <mat-expansion-panel-header>
+  <mat-expansion-panel [expanded]="isPanelOpen">
+    <mat-expansion-panel-header (click)="togglePanel()">
       <mat-panel-title>
         REGISTER
       </mat-panel-title>
       <mat-panel-description>
-        {{panelOpenState ? 'Collapse' : 'Expand'}}
+        {{isPanelOpen ? 'Collapse' : 'Expand'}}
       </mat-panel-description>
     </mat-expansion-panel-header>
     <form action="#">
@@ -41,10 +40,10 @@
       <mat-form-field>
         <input matInput name="email" type="email" placeholder="Email Address" [formControl]="emailFormControl" [errorStateMatcher]="matcher" />
         <mat-icon matSuffix>email</mat-icon>
-        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+        <mat-error *ngIf="emailFormControl.hasError('email') ">
           Email is <strong>not valid</strong>
         </mat-error>
-        <mat-error *ngIf="emailFormControl.hasError('required')">
+        <mat-error *ngIf="usernameFormControl.hasError('required')">
           Email is <strong>required</strong>
         </mat-error>
       </mat-form-field>

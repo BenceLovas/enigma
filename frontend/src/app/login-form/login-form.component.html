@@ -1,13 +1,11 @@
 <div class="wrapper">
-  <mat-expansion-panel (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false"
-                       [expanded]="true">
-    <mat-expansion-panel-header>
+  <mat-expansion-panel [expanded]="isPanelOpen">
+    <mat-expansion-panel-header (click)="togglePanel()">
       <mat-panel-title>
         LOGIN
       </mat-panel-title>
       <mat-panel-description>
-        {{panelOpenState ? 'Collapse' : 'Expand'}}
+        {{isPanelOpen ? 'Collapse' : 'Expand'}}
       </mat-panel-description>
     </mat-expansion-panel-header>
     <form action="#">
