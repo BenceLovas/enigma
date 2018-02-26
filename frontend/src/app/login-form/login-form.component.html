@@ -15,9 +15,11 @@
         <mat-hint align="end">{{username.value.length}} / 30</mat-hint>
         <mat-error *ngIf="usernameFormControl.hasError('minlength')">
           Username is too <strong>short</strong>
+          <span [style.float]="'right'">{{username.value.length}} / 5</span>
         </mat-error>
         <mat-error *ngIf="usernameFormControl.hasError('maxlength')">
           Username is too <strong>long</strong>
+          <span [style.float]="'right'">{{username.value.length}} / 30</span>
         </mat-error>
         <mat-error *ngIf="usernameFormControl.hasError('required')">
           Username is <strong>required</strong>
@@ -29,9 +31,11 @@
         <mat-hint align="end">{{password.value.length}} / 20</mat-hint>
         <mat-error *ngIf="passwordFormControl.hasError('minlength')">
           Password is too <strong>short</strong>
+          <span [style.float]="'right'">{{password.value.length}} / 8</span>
         </mat-error>
         <mat-error *ngIf="passwordFormControl.hasError('maxlength')">
           Password is too <strong>long</strong>
+          <span [style.float]="'right'">{{password.value.length}} / 20</span>
         </mat-error>
         <mat-error *ngIf="passwordFormControl.hasError('required')">
           Password is <strong>required</strong>
