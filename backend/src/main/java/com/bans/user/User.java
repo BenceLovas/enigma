@@ -74,6 +74,10 @@ public class User {
         return email;
     }
 
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
     public Set<Project> getProjects() {
         return projects;
     }

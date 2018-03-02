@@ -4,9 +4,7 @@ import com.bans.project.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 
@@ -21,4 +19,13 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PostMapping("/user")
+    public void registration(@RequestBody String user) {
+        System.out.println(user);
+    }
+
+    @PostMapping("/user-login")
+    public void login(@RequestBody String user) {
+        System.out.println(user);
+    }
 }
