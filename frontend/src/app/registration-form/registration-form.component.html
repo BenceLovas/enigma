@@ -51,7 +51,7 @@
           Email is <strong>not valid</strong>
         </mat-error>
       </mat-form-field>
-      <button mat-button class="submit-button" type="submit"><span class="button-text">SEND</span></button>
+      <button mat-button class="submit-button" type="submit" [disabled]="registrationForm.invalid"><span class="button-text">SEND</span></button>
     </form>
   </mat-expansion-panel>
 </div>
