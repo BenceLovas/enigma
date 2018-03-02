@@ -8,36 +8,36 @@
         {{isPanelOpen ? 'Collapse' : 'Expand'}}
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <form action="#">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
       <mat-form-field>
-        <input matInput #username name="username" type="text" placeholder="Username" [formControl]="usernameFormControl" [errorStateMatcher]="matcher"/>
+        <input matInput #username name="username" type="text" placeholder="Username" [formControl]="loginForm.controls['username']" [errorStateMatcher]="matcher"/>
         <mat-icon matSuffix>person</mat-icon>
         <mat-hint align="end">{{username.value.length}} / 30</mat-hint>
-        <mat-error *ngIf="usernameFormControl.hasError('minlength')">
+        <mat-error *ngIf="loginForm.controls['username'].hasError('minlength')">
           Username is too <strong>short</strong>
           <span [style.float]="'right'">{{username.value.length}} / 5</span>
         </mat-error>
-        <mat-error *ngIf="usernameFormControl.hasError('maxlength')">
+        <mat-error *ngIf="loginForm.controls['username'].hasError('maxlength')">
           Username is too <strong>long</strong>
           <span [style.float]="'right'">{{username.value.length}} / 30</span>
         </mat-error>
-        <mat-error *ngIf="usernameFormControl.hasError('required')">
+        <mat-error *ngIf="loginForm.controls['username'].hasError('required')">
           Username is <strong>required</strong>
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput #password name="password" type="password" placeholder="Password" [formControl]="passwordFormControl" [errorStateMatcher]="matcher"/>
+        <input matInput #password name="password" type="password" placeholder="Password" [formControl]="loginForm.controls['password']" [errorStateMatcher]="matcher"/>
         <mat-icon matSuffix>lock</mat-icon>
         <mat-hint align="end">{{password.value.length}} / 20</mat-hint>
-        <mat-error *ngIf="passwordFormControl.hasError('minlength')">
+        <mat-error *ngIf="loginForm.controls['password'].hasError('minlength')">
           Password is too <strong>short</strong>
           <span [style.float]="'right'">{{password.value.length}} / 8</span>
         </mat-error>
-        <mat-error *ngIf="passwordFormControl.hasError('maxlength')">
+        <mat-error *ngIf="loginForm.controls['password'].hasError('maxlength')">
           Password is too <strong>long</strong>
           <span [style.float]="'right'">{{password.value.length}} / 20</span>
         </mat-error>
-        <mat-error *ngIf="passwordFormControl.hasError('required')">
+        <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
           Password is <strong>required</strong>
         </mat-error>
       </mat-form-field>
