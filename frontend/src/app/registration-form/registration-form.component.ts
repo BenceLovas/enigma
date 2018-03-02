@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
-import {LoginErrorStateMatcher} from '../login-form/login-form.component';
+import {UserService} from '../user.service';
+import {User} from '../user';
 
 export class RegistrationErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -17,33 +18,44 @@ export class RegistrationErrorStateMatcher implements ErrorStateMatcher {
 })
 export class RegistrationFormComponent implements OnInit {
 
-  usernameFormControl = new FormControl('', [
-    Validators.required,
-    Validators.minLength(5),
-    Validators.maxLength(30),
-  ]);
-
-  passwordFormControl = new FormControl('', [
-    Validators.required,
-    Validators.minLength(8),
-    Validators.maxLength(20),
-  ]);
-
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/),
-  ]);
-
-  matcher = new LoginErrorStateMatcher();
+  matcher = new RegistrationErrorStateMatcher();
+  registrationForm: FormGroup;
 
   @Input() public isPanelOpen;
   @Output() public toggleEvent = new EventEmitter();
+
 
   togglePanel() {
     this.toggleEvent.emit(this.isPanelOpen);
   }
 
-  constructor() { }
+  registerUser(user: User) {
+    this.userService.registerUser(user);
+  }
+
+  onSubmit(form: any) {
+    const user: User = new User(form.username, form.password, form.email);
+    this.registerUser(user);
+  }
+
+  constructor(private userService: UserService, formBuilder: FormBuilder) {
+    this.registrationForm = formBuilder.group({
+      'username': ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(30),
+      ])],
+      'password': ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(20),
+      ])],
+      'email': ['', Validators.compose([
+        Validators.required,
+        Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/),
+      ])],
+    });
+  }
 
   ngOnInit() {
   }
