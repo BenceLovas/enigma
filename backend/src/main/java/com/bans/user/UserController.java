@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 
 @RestController
@@ -20,12 +21,12 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public void registration(@RequestBody String user) {
-        System.out.println(user);
+    public void registration(@RequestBody User user) {
+        System.out.println(user.getName());
     }
 
     @PostMapping("/user-login")
-    public void login(@RequestBody String user) {
-        System.out.println(user);
+    public void login(@RequestBody User user) {
+        System.out.println(user.getName());
     }
 }
