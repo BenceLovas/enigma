@@ -28,13 +28,12 @@ export class LoginFormComponent implements OnInit {
     this.toggleEvent.emit(this.isPanelOpen);
   }
 
-  loginUser(user: User) {
-    this.userService.loginUser(user);
-  }
-
   onSubmit(form: any) {
-    const user: User = new User(form.username, form.password);
-    this.loginUser(user);
+    const user: User = {
+      name: form.username,
+      password: form.password,
+    };
+    this.userService.loginUser(user);
   }
 
   constructor(private userService: UserService, formBuilder: FormBuilder) {

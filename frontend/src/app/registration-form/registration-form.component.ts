@@ -24,18 +24,17 @@ export class RegistrationFormComponent implements OnInit {
   @Input() public isPanelOpen;
   @Output() public toggleEvent = new EventEmitter();
 
-
   togglePanel() {
     this.toggleEvent.emit(this.isPanelOpen);
   }
 
-  registerUser(user: User) {
-    this.userService.registerUser(user);
-  }
-
   onSubmit(form: any) {
-    const user: User = new User(form.username, form.password, form.email);
-    this.registerUser(user);
+    const user: User = {
+      name: form.username,
+      password: form.password,
+      email: form.email
+    };
+    this.userService.registerUser(user);
   }
 
   constructor(private userService: UserService, formBuilder: FormBuilder) {
