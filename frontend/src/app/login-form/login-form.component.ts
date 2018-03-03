@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import {UserService} from '../user.service';
+import {User} from '../user';
 
 export class LoginErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -16,19 +18,8 @@ export class LoginErrorStateMatcher implements ErrorStateMatcher {
 })
 export class LoginFormComponent implements OnInit {
 
-  usernameFormControl = new FormControl('', [
-    Validators.required,
-    Validators.minLength(5),
-    Validators.maxLength(30),
-  ]);
-
-  passwordFormControl = new FormControl('', [
-    Validators.required,
-    Validators.minLength(8),
-    Validators.maxLength(20),
-  ]);
-
   matcher = new LoginErrorStateMatcher();
+  loginForm: FormGroup;
 
   @Input() public isPanelOpen;
   @Output() public toggleEvent = new EventEmitter();
@@ -37,7 +28,28 @@ export class LoginFormComponent implements OnInit {
     this.toggleEvent.emit(this.isPanelOpen);
   }
 
-  constructor() { }
+  onSubmit(form: any) {
+    const user: User = {
+      name: form.username,
+      password: form.password,
+    };
+    this.userService.loginUser(user);
+  }
+
+  constructor(private userService: UserService, formBuilder: FormBuilder) {
+    this.loginForm = formBuilder.group({
+      'username': ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(30),
+      ])],
+      'password': ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(20),
+      ])],
+    });
+  }
 
   ngOnInit() {
   }

@@ -4,10 +4,9 @@ import com.bans.project.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 
 @RestController
@@ -21,4 +20,14 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PostMapping("/user")
+    public void registration(@RequestBody User user) {
+        User userToPersist = new User(user.getName(), user.getPassword(), user.getEmail());
+        this.userService.addUser(userToPersist);
+    }
+
+    @PostMapping("/user-login")
+    public void login(@RequestBody User user) {
+        System.out.println(user.getName());
+    }
 }
