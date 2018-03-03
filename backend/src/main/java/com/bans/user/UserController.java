@@ -22,7 +22,8 @@ public class UserController {
 
     @PostMapping("/user")
     public void registration(@RequestBody User user) {
-        System.out.println(user.getName());
+        User userToPersist = new User(user.getName(), user.getPassword(), user.getEmail());
+        this.userService.addUser(userToPersist);
     }
 
     @PostMapping("/user-login")
