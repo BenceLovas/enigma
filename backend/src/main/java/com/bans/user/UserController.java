@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 
+
 @RestController
 @RequestMapping("/api")
 public class UserController {
@@ -20,9 +21,13 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     * Saves user to the database.
+     * @param userInput from registration form (name, password, email) - JSON transformed to User
+     */
     @PostMapping("/user")
-    public void registration(@RequestBody User user) {
-        User userToPersist = new User(user.getName(), user.getPassword(), user.getEmail());
+    public void registration(@RequestBody User userInput) {
+        User userToPersist = new User(userInput.getName(), userInput.getPassword(), userInput.getEmail());
         this.userService.addUser(userToPersist);
     }
 
