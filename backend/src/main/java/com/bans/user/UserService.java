@@ -1,6 +1,7 @@
 package com.bans.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +18,13 @@ public class UserService {
         return userRepository.findOne(id);
     }
 
-    public void addUser(User user) {
-        userRepository.save(user);
+    public boolean addUser(User user) {
+        try {
+            userRepository.save(user);
+            return true;
+        } catch (DataIntegrityViolationException exception) {
+            System.out.println("email already in use");
+            return false;
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.bans.user;
 
 import com.bans.project.Project;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +27,18 @@ public class UserController {
      * @param userInput from registration form (name, password, email) - JSON transformed to User
      */
     @PostMapping("/user")
-    public void registration(@RequestBody User userInput) {
+    public ResponseEntity registration(@RequestBody User userInput) {
         User userToPersist = new User(userInput.getName(), userInput.getPassword(), userInput.getEmail());
-        this.userService.addUser(userToPersist);
+        boolean success = this.userService.addUser(userToPersist);
+        if (success) {
+            return ResponseEntity.ok(Collections.singletonMap("response", "success"));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("response", "Email address already in use."));
+        }
     }
 
     @PostMapping("/user-login")
     public void login(@RequestBody User user) {
-        System.out.println(user.getName());
+        System.out.println(user.getEmail());
     }
 }
