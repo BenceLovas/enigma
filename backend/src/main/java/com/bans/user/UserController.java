@@ -33,7 +33,7 @@ public class UserController {
         if (success) {
             return ResponseEntity.ok(Collections.singletonMap("response", "success"));
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("response", "Email address already in use."));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("email", userInput.getEmail()));
         }
     }
 
