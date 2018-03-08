@@ -27,4 +27,9 @@ public class UserService {
             return false;
         }
     }
+
+    public boolean validateUser(User user) {
+        User foundUser = userRepository.findUserByEmail(user.getEmail());
+        return foundUser != null && foundUser.getPassword().equals(user.getPassword());
+    }
 }

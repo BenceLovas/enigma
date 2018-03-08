@@ -38,7 +38,14 @@ public class UserController {
     }
 
     @PostMapping("/user-login")
-    public void login(@RequestBody User user) {
-        System.out.println(user.getEmail());
+    public ResponseEntity login(@RequestBody User user) {
+        boolean valid = userService.validateUser(user);
+        if (valid) {
+            return ResponseEntity.ok(Collections.singletonMap("response", "success"));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("response", "not valid"));
+        }
+//        System.out.println(user.getEmail());
+//        System.out.println(user.getPassword());
     }
 }
