@@ -4,13 +4,6 @@ import {ErrorStateMatcher} from '@angular/material/core';
 import {UserService} from '../user.service';
 import {User} from '../user';
 
-export class LoginErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
-
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -18,30 +11,27 @@ export class LoginErrorStateMatcher implements ErrorStateMatcher {
 })
 export class LoginFormComponent implements OnInit {
 
-  matcher = new LoginErrorStateMatcher();
-  loginForm: FormGroup;
-
   @Input() public isPanelOpen;
   @Output() public toggleEvent = new EventEmitter();
+  loginForm: FormGroup;
+  invalidCredentials = false;
+  matcher = {
+    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+      const isSubmitted = form && form.submitted;
+      return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    }
+  };
 
-  togglePanel() {
-    this.toggleEvent.emit(this.isPanelOpen);
+  constructor(
+    private userService: UserService,
+    private formBuilder: FormBuilder) {
   }
 
-  onSubmit(form: any) {
-    const user: User = {
-      name: form.username,
-      password: form.password,
-    };
-    this.userService.loginUser(user);
-  }
-
-  constructor(private userService: UserService, formBuilder: FormBuilder) {
-    this.loginForm = formBuilder.group({
-      'username': ['', Validators.compose([
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      'email': ['', Validators.compose([
         Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(30),
+        Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/),
       ])],
       'password': ['', Validators.compose([
         Validators.required,
@@ -51,7 +41,25 @@ export class LoginFormComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  onSubmit(form: any) {
+    const user: User = {
+      email: form.email,
+      password: form.password,
+    };
+    this.userService
+      .loginUser(user)
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+          this.invalidCredentials = true;
+        }
+      );
   }
 
+  togglePanel() {
+    this.toggleEvent.emit(this.isPanelOpen);
+  }
 }
