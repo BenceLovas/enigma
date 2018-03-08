@@ -1,6 +1,7 @@
 package com.bans.user;
 
 import com.bans.project.Project;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,8 +29,7 @@ public class UserController {
      */
     @PostMapping("/user")
     public ResponseEntity registration(@RequestBody User userInput) {
-        User userToPersist = new User(userInput.getName(), userInput.getPassword(), userInput.getEmail());
-        boolean success = this.userService.addUser(userToPersist);
+        boolean success = this.userService.addUser(userInput);
         if (success) {
             return ResponseEntity.ok(Collections.singletonMap("response", "success"));
         } else {
