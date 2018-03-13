@@ -1,5 +1,6 @@
 package com.bans.user;
 
+import com.bans.user.exception.EmailAlreadyTakenException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -19,15 +20,14 @@ public class UserService {
         return userRepository.findOne(id);
     }
 
-    public boolean addUser(User user) {
+    public Long addUser(User user) throws EmailAlreadyTakenException {
         String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
         User userToPersist = new User(user.getName(), hashedPassword, user.getEmail());
         try {
             userRepository.save(userToPersist);
-            return true;
+            return userToPersist.getId();
         } catch (DataIntegrityViolationException exception) {
-            System.out.println("email already in use");
-            return false;
+            throw new EmailAlreadyTakenException("Email already in use");
         }
     }
 
