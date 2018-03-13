@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validat
 import {ErrorStateMatcher} from '@angular/material/core';
 import {UserService} from '../../user/user.service';
 import {User} from '../../user/user';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -24,7 +25,8 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -51,6 +53,7 @@ export class LoginFormComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
+          this.router.navigate(['/dashboard']);
         },
         error => {
           console.log(error);

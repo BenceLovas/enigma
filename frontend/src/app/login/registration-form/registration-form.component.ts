@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { UserService } from '../../user/user.service';
 import { User } from '../../user/user';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-registration-form',
@@ -23,7 +24,8 @@ export class RegistrationFormComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -65,6 +67,7 @@ export class RegistrationFormComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
+          this.router.navigate(['/dashboard']);
         },
         error => {
           this.failedEmail = error.email;

@@ -14,11 +14,15 @@ export class UserService {
     return Observable.throw(response.error);
   }
 
-  registerUser(user: User): Observable<User> {
-    return this.http.post<User>('api/user', user).catch(this.errorHandler);
+  registerUser(user: User) {
+    return this.http.post('api/user', user).catch(this.errorHandler);
   }
 
-  loginUser(user: User): Observable<User> {
-    return this.http.post<User>('api/user-login', user).catch(this.errorHandler);
+  loginUser(user: User) {
+    return this.http.post('api/user-login', user).catch(this.errorHandler);
+  }
+
+  authenticateUser() {
+    return this.http.get('api/user-authenticate').catch(this.errorHandler);
   }
 }
