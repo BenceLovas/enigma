@@ -1,6 +1,7 @@
 package com.bans.user;
 
 import com.bans.user.exception.EmailAlreadyTakenException;
+import com.bans.user.exception.InvalidCredentialsException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -31,8 +32,12 @@ public class UserService {
         }
     }
 
-    public boolean validateUser(User user) {
+    public Long validateUser(User user) throws InvalidCredentialsException {
         User foundUser = userRepository.findUserByEmail(user.getEmail());
-        return foundUser != null && BCrypt.checkpw(user.getPassword(), foundUser.getPassword());
+        if (foundUser != null && BCrypt.checkpw(user.getPassword(), foundUser.getPassword())) {
+            return foundUser.getId();
+        } else {
+            throw new InvalidCredentialsException("Email or password is invalid");
+        }
     }
 }

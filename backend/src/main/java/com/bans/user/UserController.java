@@ -2,6 +2,7 @@ package com.bans.user;
 
 import com.bans.project.Project;
 import com.bans.user.exception.EmailAlreadyTakenException;
+import com.bans.user.exception.InvalidCredentialsException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,11 +49,13 @@ public class UserController {
      * @return Returns error if credentials are invalid.
      */
     @PostMapping("/user-login")
-    public ResponseEntity login(@RequestBody User userInput) {
-        boolean valid = userService.validateUser(userInput);
-        if (valid) {
+    public ResponseEntity login(@RequestBody User userInput, HttpSession session) {
+        try {
+            Long userID = userService.validateUser(userInput);
+            session.setAttribute("userID", userID);
             return ResponseEntity.ok(Collections.singletonMap("response", "success"));
-        } else {
+        } catch (InvalidCredentialsException e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("response", "not valid"));
         }
     }
