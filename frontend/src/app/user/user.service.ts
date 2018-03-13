@@ -8,8 +8,6 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class UserService {
 
-  private user: User;
-
   constructor(private http: HttpClient) { }
 
   errorHandler(response: HttpErrorResponse) {
