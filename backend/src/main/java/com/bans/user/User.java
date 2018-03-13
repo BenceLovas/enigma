@@ -31,7 +31,7 @@ public class User {
     @Email
     private String email;
 
-    @Column(name = "creation_date", nullable = false, updatable = false)
+    @Column(name = "registration_date", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date registrationDate;
 
