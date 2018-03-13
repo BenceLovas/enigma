@@ -8,21 +8,18 @@
         {{isPanelOpen ? 'Collapse' : 'Expand'}}
       </mat-panel-description>
     </mat-expansion-panel-header>
+    <p id="error-message" *ngIf="invalidCredentials">
+      Email or password is <strong>invalid</strong>
+    </p>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
       <mat-form-field>
-        <input matInput #username name="username" type="text" placeholder="Username" [formControl]="loginForm.controls['username']" [errorStateMatcher]="matcher"/>
-        <mat-icon matSuffix>person</mat-icon>
-        <mat-hint align="end">{{username.value.length}} / 30</mat-hint>
-        <mat-error *ngIf="loginForm.controls['username'].hasError('minlength')">
-          Username is too <strong>short</strong>
-          <span [style.float]="'right'">{{username.value.length}} / 5</span>
+        <input matInput #email name="email" type="text" placeholder="Email Address" [formControl]="loginForm.controls['email']" [errorStateMatcher]="matcher"/>
+        <mat-icon matSuffix>email</mat-icon>
+        <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+          Email is <strong>required</strong>
         </mat-error>
-        <mat-error *ngIf="loginForm.controls['username'].hasError('maxlength')">
-          Username is too <strong>long</strong>
-          <span [style.float]="'right'">{{username.value.length}} / 30</span>
-        </mat-error>
-        <mat-error *ngIf="loginForm.controls['username'].hasError('required')">
-          Username is <strong>required</strong>
+        <mat-error *ngIf="loginForm.controls['email'].hasError('pattern') && !loginForm.controls['email'].hasError('required')">
+          Email is <strong>not valid</strong>
         </mat-error>
       </mat-form-field>
       <mat-form-field>

@@ -20,18 +20,18 @@ public class User {
     private Long id;
 
     @Column(nullable = false)
-    // TODO add length of hash as size
+    @Size(min = 5, max = 30)
     private String name;
 
     @Column(nullable = false)
-    @Size(min = 8, max = 20)
+    @Size(min = 60, max = 60)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @Email
     private String email;
 
-    @Column(name = "creation_date", nullable = false, updatable = false)
+    @Column(name = "registration_date", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date registrationDate;
 

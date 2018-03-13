@@ -4,6 +4,10 @@ form {
   grid-template-columns: 100%;
 }
 
+.wrapper {
+  margin-bottom: 5%;
+}
+
 .mat-expansion-panel {
   overflow-y: hidden;
 }
