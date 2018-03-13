@@ -59,4 +59,13 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("response", "not valid"));
         }
     }
+
+    @GetMapping("/user-authenticate")
+    public ResponseEntity userAuthentication(HttpSession session) {
+        if (session.getAttribute("userID") != null) {
+            return ResponseEntity.ok(Collections.singletonMap("response", "logged in"));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Collections.singletonMap("response", "not logged in"));
+        }
+    }
 }
