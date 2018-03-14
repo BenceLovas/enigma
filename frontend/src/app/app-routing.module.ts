@@ -5,6 +5,7 @@ import {LoginFormComponent} from './login/login-form/login-form.component';
 import {RegistrationFormComponent} from './login/registration-form/registration-form.component';
 import {UserAuthenticationComponent} from './user/user-authentication/user-authentication.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import {ProjectComponent} from './project/project.component';
 
 const routes: Routes = [
   {path: '', component: UserAuthenticationComponent},
@@ -23,5 +24,6 @@ export const routingComponents = [
   LoginFormComponent,
   RegistrationFormComponent,
   UserAuthenticationComponent,
-  DashboardComponent
+  DashboardComponent,
+  ProjectComponent
 ];
