@@ -10,44 +10,15 @@ import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validat
 })
 export class ProjectComponent implements OnInit {
 
-  projects: Project[] = [];
-  projectForm: FormGroup;
-  matcher = {
-    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-      return !!(control && control.invalid && control.dirty);
-    }
-  };
+  updatedProjects: Project[] = [];
 
   constructor(
-    private projectService: ProjectService,
-    private formBuilder: FormBuilder) { }
-
-  onSubmit(form: any) {
-    const project: Project = {
-      title: form.title,
-    };
-    this.projectForm.reset();
-    this.projectService.addProject(project)
-      .subscribe(
-        data => {
-          this.projects = data;
-        },
-        error => console.log(error),
-      );
-  }
+    private projectService: ProjectService) { }
 
   ngOnInit() {
-    this.projectForm = this.formBuilder.group({
-      'title': ['', Validators.compose([
-        Validators.required,
-        Validators.maxLength(30),
-      ])],
-    });
-    this.projectService.getProjects()
-      .subscribe(
-        data => this.projects = data,
-        error => console.log(error),
-      );
   }
 
+  handleAddProjectEvent(projects: Project[]) {
+    this.updatedProjects = projects;
+  }
 }

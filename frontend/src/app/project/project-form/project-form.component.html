@@ -1,0 +1,15 @@
+<form [formGroup]="projectForm" (ngSubmit)="onSubmit(projectForm.value)">
+  <mat-form-field>
+    <input matInput #title name="title" type="text" placeholder="Project Title" [formControl]="projectForm.controls['title']" [errorStateMatcher]="matcher"/>
+    <mat-icon matSuffix>add</mat-icon>
+    <mat-hint align="end">{{title.value.length}} / 30</mat-hint>
+    <mat-error *ngIf="projectForm.controls['title'].hasError('maxlength')">
+      Title is too <strong>long</strong>
+      <span [style.float]="'right'">{{title.value.length}} / 30</span>
+    </mat-error>
+    <mat-error *ngIf="projectForm.controls['title'].hasError('required')">
+      Title is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <button mat-button class="submit-button" type="submit" [disabled]="projectForm.invalid"><span class="button-text">CREATE PROJECT</span></button>
+</form>

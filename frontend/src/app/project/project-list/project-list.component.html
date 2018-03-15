@@ -1,0 +1,5 @@
+<button mat-button type="button"
+        *ngFor="let project of projects"
+        (click)="navigateToProjectDetails(project.id)">
+  {{project.title}}
+</button>
