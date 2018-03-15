@@ -5,9 +5,7 @@ import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
 @Entity
@@ -41,7 +39,7 @@ public class User {
         joinColumns = { @JoinColumn(name = "user_id", nullable = false, updatable = false) },
         inverseJoinColumns = { @JoinColumn(name = "project_id", nullable = false, updatable = false) }
     )
-    private Set<Project> projects = new HashSet<>();
+    private List<Project> projects = new ArrayList<>();
 
     public User() {
     }
@@ -78,7 +76,7 @@ public class User {
         return registrationDate;
     }
 
-    public Set<Project> getProjects() {
+    public List<Project> getProjects() {
         return projects;
     }
 

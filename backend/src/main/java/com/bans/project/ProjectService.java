@@ -20,7 +20,12 @@ public class ProjectService {
         this.userRepository = userRepository;
     }
 
-    public Set<Project> addProject(Long userID, Project project) {
+    public List<Project> getProjects(Long userID) {
+        User user = userRepository.findOne(userID);
+        return user.getProjects();
+    }
+
+    public List<Project> addProject(Long userID, Project project) {
         Project projectToPersist = new Project(project.getTitle());
         User user = userRepository.findOne(userID);
         user.addProject(projectToPersist);
