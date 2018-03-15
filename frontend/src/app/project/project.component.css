@@ -1,0 +1,20 @@
+.mat-expansion-panel-header-description {
+  flex-grow: 0;
+}
+
+:host {
+  background-color: #777777;
+  display: block;
+}
+
+button {
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+button:focus {
+  background-color: #222222;
+  color: white;
+  border-right: 5px solid #f44336;
+}

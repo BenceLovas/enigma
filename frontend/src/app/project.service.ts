@@ -14,6 +14,10 @@ export class ProjectService {
     return this.http.post('api/project', project).catch(this.errorHandler);
   }
 
+  getProjects(): Observable<Project[]> {
+    return this.http.get('api/project').catch(this.errorHandler);
+  }
+
   constructor(private http: HttpClient) { }
 
 }

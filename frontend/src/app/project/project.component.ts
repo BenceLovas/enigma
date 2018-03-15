@@ -14,8 +14,7 @@ export class ProjectComponent implements OnInit {
   projectForm: FormGroup;
   matcher = {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-      const isSubmitted = form && form.submitted;
-      return !!(control && control.invalid && (control.dirty || control.touched));
+      return !!(control && control.invalid && control.dirty);
     }
   };
 
@@ -44,6 +43,11 @@ export class ProjectComponent implements OnInit {
         Validators.maxLength(30),
       ])],
     });
+    this.projectService.getProjects()
+      .subscribe(
+        data => this.projects = data,
+        error => console.log(error),
+      );
   }
 
 }
