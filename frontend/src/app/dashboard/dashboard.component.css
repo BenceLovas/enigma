@@ -1,0 +1,14 @@
+/*:host {*/
+  /*background-color: #777777;*/
+  /*display: grid;*/
+  /*margin: 0 auto;*/
+  /*grid-template-columns: repeat(4, 1fr);*/
+  /*grid-template-areas:*/
+    /*"project-list . ."*/
+    /*"project-list . ."*/
+    /*"project-list . .";*/
+/*}*/
+
+/*app-project {*/
+  /*grid-area: project-list;*/
+/*}*/
