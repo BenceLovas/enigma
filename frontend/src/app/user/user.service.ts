@@ -21,8 +21,4 @@ export class UserService {
   loginUser(user: User) {
     return this.http.post('api/user-login', user).catch(this.errorHandler);
   }
-
-  authenticateUser() {
-    return this.http.get('api/user-authenticate').catch(this.errorHandler);
-  }
 }
