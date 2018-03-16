@@ -1,0 +1,80 @@
+<div class="table-column">
+  <div class="table-heading">
+    TODO
+  </div>
+  <div class="column-body">
+    <div class="task-container" [dragula]='"zone-bag"' [dragulaModel]="todo">
+      <mat-card *ngFor="let item of todo; let i = index">
+        <mat-card-title>
+          {{item.title}}
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{item.status}}
+        </mat-card-subtitle>
+        <mat-card-content>
+          {{item.creationDate | date: 'short'}}
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<div class="table-column">
+  <div class="table-heading">
+    IN PROGRESS
+  </div>
+  <div class="column-body">
+    <div class="task-container" [dragula]='"zone-bag"' [dragulaModel]="progress">
+      <mat-card *ngFor="let item of progress; let i = index">
+        <mat-card-title>
+          {{item.title}}
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{item.status}}
+        </mat-card-subtitle>
+        <mat-card-content>
+          {{item.creationDate | date: 'short'}}
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<div class="table-column">
+  <div class="table-heading">
+    TEST
+  </div>
+  <div class="column-body">
+    <div class="task-container" [dragula]='"zone-bag"' [dragulaModel]="test">
+      <mat-card *ngFor="let item of test; let i = index">
+        <mat-card-title>
+          {{item.title}}
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{item.status}}
+        </mat-card-subtitle>
+        <mat-card-content>
+          {{item.creationDate | date: 'short'}}
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<div class="table-column">
+  <div class="table-heading">
+    DONE
+  </div>
+  <div class="column-body">
+    <div class="task-container" [dragula]='"zone-bag"' [dragulaModel]="done">
+      <mat-card *ngFor="let item of done; let i = index">
+        <mat-card-title>
+          {{item.title}}
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{item.status}}
+        </mat-card-subtitle>
+        <mat-card-content>
+          {{item.creationDate | date: 'short'}}
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,11 +1,12 @@
 package com.bans.project;
 
+import com.bans.task.Task;
 import com.bans.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import javax.validation.constraints.Size;
+import java.util.*;
 
 
 @Entity
@@ -16,14 +17,19 @@ public class Project {
     private Long id;
 
     @Column(nullable = false)
+    @Size(max = 30)
     private String title;
 
     @Column(name = "creation_date", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "projects")
     private Set<User> users = new HashSet<>();
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private List<Task> tasks = new ArrayList<>();
 
     public Project() {
     }
@@ -47,5 +53,13 @@ public class Project {
 
     public Set<User> getUsers() {
         return users;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void addTask(Task task) {
+        this.tasks.add(task);
     }
 }
