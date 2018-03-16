@@ -2,12 +2,10 @@ package com.bans.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -20,9 +18,15 @@ public class TaskController {
         this.taskService = taskService;
     }
 
+    @GetMapping("/project/{id}/task")
+    public ResponseEntity getTasks(@PathVariable("id") Long projectID) {
+        List<Task> tasks = this.taskService.getTasks(projectID);
+        return ResponseEntity.ok(tasks);
+    }
+
     @PostMapping("/task")
-    public ResponseEntity addTask(@RequestBody String request) {
-        System.out.println(request);
-        return ResponseEntity.ok(Collections.singletonMap("response", "success"));
+    public ResponseEntity addTask(@RequestBody TaskRequest request) {
+        List<Task> tasks= this.taskService.addTask(request.getTask(), request.getProjectID());
+        return ResponseEntity.ok(tasks);
     }
 }

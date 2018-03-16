@@ -1,6 +1,7 @@
 package com.bans.task;
 
 import com.bans.project.Project;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -24,16 +25,17 @@ public class Task {
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "project_id")
-    @Column(insertable = false, updatable = false)
     private Project project;
 
     public Task() {
     }
 
-    public Task(String title) {
+    public Task(String title, Project project) {
         this.title = title;
+        this.project = project;
         this.status = TaskStatus.TODO;
         this.creationDate = new Date();
     }
