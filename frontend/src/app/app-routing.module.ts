@@ -6,10 +6,14 @@ import {RegistrationFormComponent} from './login/registration-form/registration-
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {ProjectComponent} from './project/project.component';
 import {UserAuthenticationService} from './user/user-authentication.service';
+import {ProjectTableComponent} from './project-details/project-table/project-table.component';
+import {ProjectDetailsComponent} from './project-details/project-details.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [UserAuthenticationService]},
+  {path: 'project/:id', component: ProjectDetailsComponent},
+  {path: 'project', component: ProjectTableComponent},
   {path: '', canActivate: [UserAuthenticationService], redirectTo: '/dashboard', pathMatch: 'full'},
 ];
 
@@ -25,4 +29,6 @@ export const routingComponents = [
   RegistrationFormComponent,
   DashboardComponent,
   ProjectComponent,
+  ProjectTableComponent,
+  ProjectDetailsComponent,
 ];

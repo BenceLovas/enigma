@@ -10,8 +10,12 @@ export class TaskService {
     return Observable.throw(response.error);
   }
 
-  addTask(task: Task) {
-    return this.http.post('api/task', task).catch(this.errorHandler);
+  addTask(data) {
+    return this.http.post('api/task', data).catch(this.errorHandler);
+  }
+
+  getTasks(projectID) {
+    return this.http.get('api/project/' + projectID + '/task').catch(this.errorHandler);
   }
 
   constructor(private http: HttpClient) { }
